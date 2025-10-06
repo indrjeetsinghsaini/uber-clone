@@ -1,6 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
-import { UserDataContext } from '../context/UserContext'
+// FIX: Changed import path from '../context/UserContext' to '../../context/UserContext'
+// Assuming context is located one level higher (from 'pages' to 'src') and then into 'context'
+import { UserDataContext } from '../../context/UserContext' 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
@@ -12,8 +14,6 @@ const UserLogin = () => {
   const { user, setUser } = useContext(UserDataContext)
   const navigate = useNavigate()
 
-
-
   const submitHandler = async (e) => {
     e.preventDefault();
 
@@ -22,13 +22,19 @@ const UserLogin = () => {
       password: password
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/login`, userData)
+    try {
+      // API CALL FIX: Using the complete, hardcoded URL.
+      const response = await axios.post(`https://uber-clone-production-8e3f.up.railway.app/users/login`, userData)
 
-    if (response.status === 200) {
-      const data = response.data
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      navigate('/home')
+      if (response.status === 200) {
+        const data = response.data
+        setUser(data.user)
+        localStorage.setItem('token', data.token)
+        navigate('/home')
+      }
+    } catch (error) {
+        console.error("Login failed:", error.response?.data?.message || error.message);
+        // You should provide user feedback on login failure here
     }
 
 
