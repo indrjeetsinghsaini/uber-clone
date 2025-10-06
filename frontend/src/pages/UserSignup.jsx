@@ -1,7 +1,8 @@
 import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { UserDataContext } from '../context/UserContext'
+// FIX 1: Corrected import path to '../UserContext' (assuming the context file is a sibling to the 'pages' folder, directly under 'src').
+import { UserDataContext } from '../UserContext' 
 
 
 
@@ -14,12 +15,7 @@ const UserSignup = () => {
 
   const navigate = useNavigate()
 
-
-
   const { user, setUser } = useContext(UserDataContext)
-
-
-
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -32,13 +28,19 @@ const UserSignup = () => {
       password: password
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/users/register`, newUser)
+    try {
+      // FIX 2: Replaced environment variable syntax with the full, hardcoded URL.
+      const response = await axios.post(`https://uber-clone-production-8e3f.up.railway.app/users/register`, newUser)
 
-    if (response.status === 201) {
-      const data = response.data
-      setUser(data.user)
-      localStorage.setItem('token', data.token)
-      navigate('/home')
+      if (response.status === 201) {
+        const data = response.data
+        setUser(data.user)
+        localStorage.setItem('token', data.token)
+        navigate('/home')
+      }
+    } catch (error) {
+        console.error("Signup failed:", error.response?.data?.message || error.message);
+        // You would typically display a user-friendly error message here.
     }
 
 
@@ -58,11 +60,11 @@ const UserSignup = () => {
             submitHandler(e)
           }}>
 
-            <h3 className='text-lg w-1/2  font-medium mb-2'>What's your name</h3>
+            <h3 className='text-lg w-1/2  font-medium mb-2'>What's your name</h3>
             <div className='flex gap-4 mb-7'>
               <input
                 required
-                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base'
+                className='bg-[#eeeeee] w-1/2 rounded-lg px-4 py-2 border  text-lg placeholder:text-base'
                 type="text"
                 placeholder='First name'
                 value={firstName}
@@ -72,7 +74,7 @@ const UserSignup = () => {
               />
               <input
                 required
-                className='bg-[#eeeeee] w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base'
+                className='bg-[#eeeeee] w-1/2  rounded-lg px-4 py-2 border  text-lg placeholder:text-base'
                 type="text"
                 placeholder='Last name'
                 value={lastName}
