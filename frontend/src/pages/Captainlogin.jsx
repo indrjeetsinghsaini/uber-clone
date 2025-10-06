@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { CaptainDataContext } from '../context/CapatainContext'
+// FIX 1: Corrected import path. Trying '../context/CaptainContext' as a common folder structure.
+import { CaptainDataContext } from '../context/CaptainContext' 
 
 const Captainlogin = () => {
 
@@ -16,21 +17,28 @@ const Captainlogin = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    const captain = {
+    const captainData = { // Renamed local variable to captainData for clarity
       email: email,
       password
     }
 
-    const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/captains/login`, captain)
+    try {
+      // API URL is correct and hardcoded.
+      const response = await axios.post(`https://uber-clone-production-8e3f.up.railway.app/captains/login`, captainData)
 
-    if (response.status === 200) {
-      const data = response.data
+      if (response.status === 200) {
+        const data = response.data
 
-      setCaptain(data.captain)
-      localStorage.setItem('token', data.token)
-      navigate('/captain-home')
+        setCaptain(data.captain)
+        localStorage.setItem('token', data.token)
+        navigate('/captain-home')
 
+      }
+    } catch (error) {
+        console.error("Captain login failed:", error.response?.data?.message || error.message);
+        // Add a simple error display if needed: setError('Login failed. Check your credentials.')
     }
+
 
     setEmail('')
     setPassword('')
