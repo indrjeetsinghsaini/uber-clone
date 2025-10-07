@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom'
 // FIX: Changed import path from '../context/UserContext' to '../../context/UserContext'
 // Assuming context is located one level higher (from 'pages' to 'src') and then into 'context'
-import { UserDataContext } from '../../context/UserContext' 
+import { UserDataContext } from '../context/UserContext' 
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 
