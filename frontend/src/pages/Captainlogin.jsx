@@ -5,8 +5,10 @@ import axios from 'axios'
 // FIX 1: Corrected import path. Trying '../context/CaptainContext' as a common folder structure.
 import { CaptainDataContext } from '../context/CaptainContext' 
 
-const Captainlogin = () => {
-
+const CaptainLogin = () => {
+  // ... component code
+}
+export default CaptainLogin;
   const [ email, setEmail ] = useState('')
   const [ password, setPassword ] = useState('')
 
