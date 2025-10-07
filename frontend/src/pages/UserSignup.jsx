@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // FIX 1: Corrected import path to '../UserContext' (assuming the context file is a sibling to the 'pages' folder, directly under 'src').
-import { UserDataContext } from '../UserContext' 
+import { UserDataContext } from '../context/UserContext.jsx';
 
 
 
