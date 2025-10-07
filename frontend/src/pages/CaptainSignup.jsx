@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 // FIX 1: Corrected import path. Trying '../../../CaptainContext' (two levels up) as the previous path failed.
-import { CaptainDataContext } from '../../CaptainContext' 
+import { CaptainDataContext } from '../context/CaptainContext'
+
 
 
 const CaptainSignup = () => {
