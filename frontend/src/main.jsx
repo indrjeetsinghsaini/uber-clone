@@ -6,7 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 // Import the PROVIDER components from your context files
 import UserProvider from './context/UserContext.jsx';
-import CaptainProvider from './context/CaptainContext.jsx';
+// Corrected the filename to be all lowercase to match what you provided
+import CaptainProvider from './context/captaincontext.jsx';
 import SocketProvider from './context/SocketContext.jsx';
 
 // Get the root element from your HTML
